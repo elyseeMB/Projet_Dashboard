@@ -87,7 +87,7 @@ const navItems = [
     icon: <AdminPanelSettingsOutlined />,
   },
   {
-    text: "Performant",
+    text: "Performance",
     icon: <TrendingUpOutlined />,
   },
 ];

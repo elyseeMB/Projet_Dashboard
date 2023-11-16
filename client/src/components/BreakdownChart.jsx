@@ -29,7 +29,6 @@ const BreakdownChart = ({ isDashboard = false }) => {
       height={isDashboard ? "400px" : "100%"}
       width={undefined}
       minHeight={isDashboard ? "325px" : undefined}
-      minHeight={isDashboard ? "325px" : undefined}
       position="relative"
     >
       <ResponsivePie

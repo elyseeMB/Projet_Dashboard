@@ -1,13 +1,15 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
-import { useGetAdminsQuery } from "../../state/api";
+import { useGetPerformanceQuery } from "../../state/api";
 import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 import CustomerColumnMenu from "../../components/DataGridCustomerColumnMenu";
 
-const Admin = () => {
+const Performance = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetAdminsQuery();
+  const userId = useSelector((state) => state.global.userId);
+  const { data, isLoading } = useGetPerformanceQuery(userId);
   const columns = [
     {
       field: "_id",
@@ -15,45 +17,36 @@ const Admin = () => {
       flex: 1,
     },
     {
-      field: "name",
-      headerName: "Name",
+      field: "userId",
+      headerName: "User ID",
       flex: 0.5,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "createdAt",
+      headerName: "createdAt",
       flex: 1,
     },
     {
-      field: "phoneNumber",
-      headerName: "Phone Number",
+      field: "products",
+      headerName: "# of Products",
       flex: 0.5,
-      renderCell: (params) => {
-        return params.value
-          .toString()
-          .replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
+      sortable: false,
+      renderCell: (params) => params.value.length,
     },
     {
-      field: "country",
-      headerName: "Country",
+      field: "cost",
+      headerName: "Cost",
       flex: 0.4,
-    },
-    {
-      field: "occupation",
-      headerName: "Occupation",
-      flex: 1,
-    },
-    {
-      field: "role",
-      headerName: "Role",
-      flex: 1,
+      renderCell: (params) => `${Number(params.value).toFixed(2)}`,
     },
   ];
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADMINS" subtitle="Managing admins and list of admins" />
+      <Header
+        title="PERFORMANCE"
+        subtitle="Track your Affiliate Sales Performance"
+      />
       <Box
         mt="40px"
         height="75vh"
@@ -85,7 +78,7 @@ const Admin = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={(data && data.sales) || []}
           columns={columns}
           slots={{ ColomunMenu: CustomerColumnMenu }}
         />
@@ -94,4 +87,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Performance;

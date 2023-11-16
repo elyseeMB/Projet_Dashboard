@@ -11,7 +11,6 @@ import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 
 /* data imports */
-
 import User from "./models/User.js";
 import {
   dataUser,
@@ -19,11 +18,13 @@ import {
   dataProductStat,
   dataTransaction,
   dataOverallStat,
+  dataAffiliateStat,
 } from "./data/index.js";
 import Product from "./models/Products.js";
 import ProductStat from "./models/ProductStat.js";
 import Transaction from "./models/Transaction.js";
 import OvervallStat from "./models/OvervallStat.js";
+import AffiliateStat from "./models/AffiliateStat.js";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -53,6 +54,7 @@ mongoose
     app.listen(PORT, () => console.log(`Server Port ${PORT}`));
 
     /* ONLY ADD DATA ONE TIME */
+    // AffiliateStat.insertMany(dataAffiliateStat);
     // Product.insertMany(dataProduct);
     // ProductStat.insertMany(dataProductStat);
     // Transaction.insertMany(dataTransaction);
